@@ -1,0 +1,47 @@
+#Download the csv file at https://www.statlearning.com/resources-first-edition
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+ad = pd.read_csv('Advertising.csv')
+
+ad.columns
+
+ad2=ad.drop(['Unnamed: 0'], axis=1)
+
+ad2.head()
+
+pd.set_option('display.float_format', lambda x: '%.2f' % x)
+ad2.describe()
+
+sns.pairplot(ad2)
+
+# Linear regression using only TV in the model
+mTV = smf.ols(formula="sales ~ TV", data=ad2).fit()
+mTV.summary()
+
+# Linear regression using only radio in the model
+mradio = smf.ols(formula="sales ~ radio", data=ad2).fit()
+mradio.summary()
+
+# Linear regression using only newspaper in the model
+mnewsp = smf.ols(formula="sales ~ newspaper", data=ad2).fit()
+mnewsp.summary()
+
+# Linear regression using TV, radio and newspaper in the model
+mtot = smf.ols(formula="sales ~ TV + radio + newspaper", data=ad).fit()
+mtot.summary()
+
+# Linear regression using TV and radio in the model
+mTVradio = smf.ols(formula="sales ~ TV + radio", data=ad).fit()
+mTVradio.summary()
+
+# Linear regression using TV, radio and interaction between TV and radio in the model
+minteracao = smf.ols(formula="sales ~ TV + radio + TV:radio", data=ad).fit()
+minteracao.summary()
