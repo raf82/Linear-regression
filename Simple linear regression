@@ -33,15 +33,3 @@ mradio.summary()
 # Linear regression using only newspaper in the model
 mnewsp = smf.ols(formula="sales ~ newspaper", data=ad2).fit()
 mnewsp.summary()
-
-# Linear regression using TV, radio and newspaper in the model
-mtot = smf.ols(formula="sales ~ TV + radio + newspaper", data=ad).fit()
-mtot.summary()
-
-# Linear regression using TV and radio in the model
-mTVradio = smf.ols(formula="sales ~ TV + radio", data=ad).fit()
-mTVradio.summary()
-
-# Linear regression using TV, radio and interaction between TV and radio in the model
-minteracao = smf.ols(formula="sales ~ TV + radio + TV:radio", data=ad).fit()
-minteracao.summary()
